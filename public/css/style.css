@@ -2,6 +2,8 @@
 :root {
   --black: #1a1a1a;
   --grey: #f4f4f4;
+  --white: #fff;
+  --red: red;
 }
 
 body {
@@ -156,10 +158,6 @@ nav{
   display: flex;
 }
 
-.tools-navbar a{
-  font-size: 1.1em;
-}
-
 .menu-navbar{
   display: flex;
   text-transform: uppercase;
@@ -167,4 +165,53 @@ nav{
 
 .logo-navbar img{
   vertical-align: bottom;
+}
+
+.cart-icon-navbar{
+  position: relative;
+}
+
+.number-article{
+  color: var(--white);
+  background-color: var(--red);
+  position: absolute;
+  top: -2.5px;
+  right: -5px;
+  border-radius: 50%;
+  height: 15px;
+  width: 15px;
+  text-align: center;
+}
+
+.sub-nav{
+  position: fixed;
+  top: 94px;
+  left: 0;
+  width: 100%;
+  display: none;
+  z-index: 99;
+}
+
+.sub-nav a{
+  margin: 15px 0;
+  padding: 0;
+}
+
+.sub-nav li{
+  padding: 5px 0;
+}
+
+.content-sub-nav{
+  padding: 70px 0 75px 0;
+  display: flex;
+}
+
+.sub-nav span{
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.menu-navbar li:hover .sub-nav{
+  display: block;
 }
