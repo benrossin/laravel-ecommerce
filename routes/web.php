@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/////////////ROUTE CLIENT////////////
+//*************ROUTE-HOME**********
+Route::get('/', 'HomeController@index')->name('home');
+
+//************ROUTE-PRODUIT****************
+
+
+//***************ROUTE-PANIER******************
+
+
+//************ROUTE-CONNEXION****************
+
+
+//////////////ROUTE ADMIN/////////////////
