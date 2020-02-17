@@ -1,7 +1,7 @@
 <nav>
     <div class="container">
         <div class="content-navbar">
-            <h3><a href="#" class="logo-navbar"><img src="https://www.bizzbee.com/on/demandware.static/-/Sites/fr_FR/dw01b1b394/Bizzbee-SFRA/Bizzbee-logo.svg" alt="Bizzbee" style="height: 40px;"></a></h3>
+            <h3><a href="{{ route('home') }}" class="logo-navbar"><img src="https://www.bizzbee.com/on/demandware.static/-/Sites/fr_FR/dw01b1b394/Bizzbee-SFRA/Bizzbee-logo.svg" alt="Bizzbee" style="height: 40px;"></a></h3>
             <ul class="menu-navbar">
                 <li>
                     <a href="#">Homme</a>
