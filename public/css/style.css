@@ -132,7 +132,7 @@ h4 {
 /*Navbar Lang*/
 .navbar-lang{
   text-transform: uppercase;
-  border-bottom: 1px solid var(--grey);
+  border-bottom: 2px solid var(--grey);
   padding: 10px 0;
 }
 
@@ -161,8 +161,9 @@ nav{
 .content-navbar{
   margin: 0 -20px;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
+  text-transform: uppercase;
 }
 
 .content-navbar a{
@@ -170,13 +171,9 @@ nav{
   margin: 0 15px;
 }
 
-.tools-navbar{
+.menu-navbar, .tools-navbar{
   display: flex;
-}
-
-.menu-navbar{
-  display: flex;
-  text-transform: uppercase;
+  align-items: center;
 }
 
 .logo-navbar img{
@@ -201,7 +198,7 @@ nav{
 
 .sub-nav{
   position: fixed;
-  top: 94px;
+  top: 95px;
   left: 0;
   width: 100%;
   display: none;
@@ -224,9 +221,7 @@ nav{
 }
 
 .sub-nav span{
-  text-transform: uppercase;
   font-weight: bold;
-  font-size: 13px;
 }
 
 .menu-navbar li:hover .sub-nav{
