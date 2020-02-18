@@ -129,10 +129,13 @@ h4 {
   color: var(--white);
 }
 
+.page-content{
+  margin-top: 82px;
+}
+
 /*Navbar Lang*/
 .navbar-lang{
   text-transform: uppercase;
-  border-bottom: 2px solid var(--grey);
   padding: 10px 0;
 }
 
@@ -156,6 +159,8 @@ nav{
   width: 100%;
   z-index: 99;
   background-color: var(--white);
+  border-bottom: 2px solid var(--grey);
+  border-top: 2px solid var(--grey);
 }
 
 .content-navbar{
@@ -233,7 +238,6 @@ nav{
   background-color: var(--red);
   color: var(--white);
   padding: 25px 0;
-  margin-top: 80px;
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 3px;
@@ -251,5 +255,15 @@ nav{
 .content-buttons .btn-white:first-child{
   margin-right: 50px;
 }
-
 /*Banner Home*/
+
+/*Page nav products*/
+.products-nav{
+  background-color: var(--grey);
+  padding: 17.5px 0;
+}
+
+.content-products-nav{
+  display: flex;
+  justify-content: space-between;
+}

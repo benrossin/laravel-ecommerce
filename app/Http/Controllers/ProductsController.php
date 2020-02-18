@@ -8,19 +8,25 @@ class ProductsController extends Controller{
     public function index($sex){
         $titlePage = $sex;
         $products = Products::getProductsBySex($sex);
-        return view('client.products.show-products', compact('titlePage', 'products'));
+        $sex = ['sex_url' => $sex, 'sex_libelle' => $products[0]->sexe_libelle];
+        return view('client.products.show-products', compact('titlePage', 'products', 'sex'));
     }
 
     public function category($sex, $category){
-        $titlePage = 'Catégorie';
+        $titlePage = $category;
         $products = Products::getProductsByCategory($sex, $category);
-        return view('client.products.show-products', compact('titlePage', 'products'));
+        $sex = ['sex_url' => $sex, 'sex_libelle' => $products[0]->sexe_libelle];
+        $category = ['category_url' => $category, 'category_libelle' => $products[0]->categorie_libelle];
+        return view('client.products.show-products', compact('titlePage', 'products', 'sex', 'category'));
     }
 
     public function subcategory($sex, $category, $subcategory){
-        $titlePage = 'Sous catégorie';
+        $titlePage = $subcategory;
         $products = Products::getProductsBySubcategory($sex, $subcategory);
-        return view('client.products.show-products', compact('titlePage', 'products'));
+        $sex = ['sex_url' => $sex, 'sex_libelle' => $products[0]->sexe_libelle];
+        $category = ['category_url' => $category, 'category_libelle' => $products[0]->categorie_libelle];
+        $subcategory = ['subcategory_url' => $subcategory, 'subcategory_libelle' => $products[0]->souscategorie_libelle];
+        return view('client.products.show-products', compact('titlePage', 'products', 'sex', 'category', 'subcategory'));
     }
 
     /*public function promo(){

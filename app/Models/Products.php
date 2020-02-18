@@ -11,7 +11,7 @@ class Products extends Model
 
     public static function getProductsBySex($sex){
         return DB::table('produit')
-            ->select('produit.id as id_produit', 'reference', 'produit.libelle as libelle_produit', 'description', 'prix')
+            ->select('produit.id as id_produit', 'reference', 'produit.libelle as libelle_produit', 'description', 'prix', 'sexe.libelle as sexe_libelle')
             ->join('sexe', 'sexe.id', '=', 'produit.id_sexe')
             ->where('sexe.url', $sex)
             ->get();
@@ -19,7 +19,7 @@ class Products extends Model
 
     public static function getProductsByCategory($sex, $category){
         return DB::table('produit')
-            ->select('produit.id as id_produit', 'reference', 'produit.libelle as libelle_produit', 'description', 'prix')
+            ->select('produit.id as id_produit', 'reference', 'produit.libelle as libelle_produit', 'description', 'prix', 'sexe.libelle as sexe_libelle', 'categorie.libelle as categorie_libelle')
             ->join('sexe', 'sexe.id', '=', 'produit.id_sexe')
             ->join('sous_categorie', 'sous_categorie.id', '=', 'produit.id_souscategorie')
             ->join('categorie', 'categorie.id', '=', 'sous_categorie.id_categorie')
@@ -30,9 +30,10 @@ class Products extends Model
 
     public static function getProductsBySubcategory($sex, $subcategory){
         return DB::table('produit')
-            ->select('produit.id as id_produit', 'reference', 'produit.libelle as libelle_produit', 'description', 'prix')
+            ->select('produit.id as id_produit', 'reference', 'produit.libelle as libelle_produit', 'description', 'prix', 'sexe.libelle as sexe_libelle', 'categorie.libelle as categorie_libelle', 'sous_categorie.libelle as souscategorie_libelle')
             ->join('sexe', 'sexe.id', '=', 'produit.id_sexe')
             ->join('sous_categorie', 'sous_categorie.id', '=', 'produit.id_souscategorie')
+            ->join('categorie', 'categorie.id', '=', 'sous_categorie.id_categorie')
             ->where('sexe.url', $sex)
             ->where('sous_categorie.url', $subcategory)
             ->get();
