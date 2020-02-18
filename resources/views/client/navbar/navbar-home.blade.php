@@ -10,7 +10,8 @@
                             <div class="content-sub-nav fadeIn animated">
                                 <ul class="w25">
                                     <a href="{{ route('products.by-category', ['sex' => 'homme', 'category' => 'vetements']) }}">vêtements</span>
-                                    <li><a href="{{ route('products.by-subcategory', ['sex' => 'homme', 'category' => 'vetements', 'subcategory' => 'jeans']) }}">Polos</a></li>
+                                    <li><a href="{{ route('products.by-subcategory', ['sex' => 'homme', 'category' => 'vetements', 'subcategory' => 'polos']) }}">Polos</a></li>
+                                    <li><a href="{{ route('products.by-subcategory', ['sex' => 'homme', 'category' => 'vetements', 'subcategory' => 'jeans']) }}">Jeans</a></li>
                                     <li><a href="#">Manteaux & Blousons</a></li>
                                     <li><a href="#">Pullovers</a></li>
                                     <li><a href="#">Sweatshirts</a></li>

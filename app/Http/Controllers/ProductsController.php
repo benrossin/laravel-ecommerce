@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers;
 use App\Models\Products;
+use App\Models\Sex;
+use App\Models\Category;
+use App\Models\Subcategory;
 
 class ProductsController extends Controller{
     
     public function index($sex){
         $titlePage = $sex;
         $products = Products::getProductsBySex($sex);
-        $sex = ['sex_url' => $sex, 'sex_libelle' => $products[0]->sexe_libelle];
+        $sex = Sex::getSexByUrl($sex);
         return view('client.products.show-products', compact('titlePage', 'products', 'sex'));
     }
 
     public function category($sex, $category){
         $titlePage = $category;
         $products = Products::getProductsByCategory($sex, $category);
-        $sex = ['sex_url' => $sex, 'sex_libelle' => $products[0]->sexe_libelle];
-        $category = ['category_url' => $category, 'category_libelle' => $products[0]->categorie_libelle];
+        $sex = Sex::getSexByUrl($sex);
+        $category = Category::getCategoryByUrl($category);
         return view('client.products.show-products', compact('titlePage', 'products', 'sex', 'category'));
     }
 
     public function subcategory($sex, $category, $subcategory){
         $titlePage = $subcategory;
         $products = Products::getProductsBySubcategory($sex, $subcategory);
-        $sex = ['sex_url' => $sex, 'sex_libelle' => $products[0]->sexe_libelle];
-        $category = ['category_url' => $category, 'category_libelle' => $products[0]->categorie_libelle];
-        $subcategory = ['subcategory_url' => $subcategory, 'subcategory_libelle' => $products[0]->souscategorie_libelle];
+        $sex = Sex::getSexByUrl($sex);
+        $category = Category::getCategoryByUrl($category);
+        $subcategory = Subcategory::getSubcategoryByUrl($subcategory);
         return view('client.products.show-products', compact('titlePage', 'products', 'sex', 'category', 'subcategory'));
     }
 

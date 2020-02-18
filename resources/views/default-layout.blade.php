@@ -8,7 +8,7 @@
 <!--Navbar-->
 @include('client.navbar.navbar-home')
 
-<div class="page">
+<div class="page" id="app">
     <div class="page-content">
         <!-- CONTENT -->
         @yield('content')

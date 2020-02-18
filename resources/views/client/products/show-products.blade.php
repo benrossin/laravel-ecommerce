@@ -10,25 +10,31 @@
         <div class="content-products-nav">
             <div class="products-nav-content">
                 <a href="{{ route('home') }}">Accueil</a> >
-                <a href="{{ route('products.show', ['sex' => $sex['sex_url']]) }}">{{ $sex['sex_libelle'] }}</a>
+                <a href="{{ route('products.show', ['sex' => $sex->url]) }}">{{ $sex->libelle }}</a>
                 @isset($category)
                     >
-                    <a href="{{ route('products.by-category', ['sex' => $sex['sex_url'], 'category' => $category['category_url']]) }}">{{ $category['category_libelle'] }}</a>
+                    <a href="{{ route('products.by-category', ['sex' => $sex->url, 'category' => $category->url]) }}">{{ $category->libelle }}</a>
                 @endisset
                 @isset($subcategory)
                     >
-                    <a href="{{ route('products.by-subcategory', ['sex' => $sex['sex_url'], 'category' => $category['category_url'], 'subcategory' => $subcategory['subcategory_url']]) }}">{{ $subcategory['subcategory_libelle'] }}</a>
+                    <a href="{{ route('products.by-subcategory', ['sex' => $sex->url, 'category' => $category->url, 'subcategory' => $subcategory->url]) }}">{{ $subcategory->libelle }}</a>
                 @endisset
             </div>
             <span class="number-products">
                 @if(count($products) > 1)
                     {{ count($products) }} articles
-                @else
+                @elseif(count($products) == 1)
                     {{ count($products) }} article
+                @else
+                    Aucun article
                 @endif
             </span>
         </div>
     </div>
+</div>
+
+<div class="search-results">
+    <products class="fcontent container" :list-products="{{ json_encode($products) }}"></products>
 </div>
 
 @endsection

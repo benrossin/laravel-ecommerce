@@ -2,6 +2,7 @@
 :root {
   --black: #1a1a1a;
   --grey: #f4f4f4;
+  --dark-grey: #adadad;
   --white: #fff;
   --red: #be1725;
 }
@@ -78,6 +79,14 @@ h4 {
   position: relative;
 }
 
+.w80{
+  width: 80%;
+}
+
+.w75{
+  width: 75%;
+}
+
 .w70{
   width: 70%;
 }
@@ -102,13 +111,17 @@ h4 {
   width: 25%;
 }
 
+.w20{
+  width: 20%;
+}
+
 .fcontent {
   display: flex;
   flex-wrap: wrap;
 }
 
 .content-grid{
-  margin: -15px;
+  margin: -5px;
 }
 
 .small-text{
@@ -266,4 +279,13 @@ nav{
 .content-products-nav{
   display: flex;
   justify-content: space-between;
+}
+
+.number-products{
+  color: var(--dark-grey);
+}
+
+/*Search results products*/
+.search-results{
+  padding: 50px 0;
 }
