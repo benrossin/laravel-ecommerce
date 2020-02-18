@@ -26,9 +26,11 @@ class Products extends Model
                 'sous_categorie.url as souscategorie_url',
                 'categorie.id as categorie_id',
                 'categorie.libelle as categorie_libelle',
-                'categorie.url as categorie_url'
+                'categorie.url as categorie_url',
+                'remise.taux as remise_taux'
             )
             ->join('sexe', 'sexe.id', '=', 'produit.id_sexe')
+            ->leftjoin('remise', 'remise.id', '=', 'produit.id_remise')
             ->join('sous_categorie', 'sous_categorie.id', '=', 'produit.id_souscategorie')
             ->join('categorie', 'categorie.id', '=', 'sous_categorie.id_categorie')
             ->where('sexe.url', $sex)
@@ -52,9 +54,11 @@ class Products extends Model
                 'sous_categorie.url as souscategorie_url',
                 'categorie.id as categorie_id',
                 'categorie.libelle as categorie_libelle',
-                'categorie.url as categorie_url'
+                'categorie.url as categorie_url',
+                'remise.taux as remise_taux'
             )
             ->join('sexe', 'sexe.id', '=', 'produit.id_sexe')
+            ->leftjoin('remise', 'remise.id', '=', 'produit.id_remise')
             ->join('sous_categorie', 'sous_categorie.id', '=', 'produit.id_souscategorie')
             ->join('categorie', 'categorie.id', '=', 'sous_categorie.id_categorie')
             ->where('sexe.url', $sex)
@@ -79,9 +83,11 @@ class Products extends Model
                 'sous_categorie.url as souscategorie_url',
                 'categorie.id as categorie_id',
                 'categorie.libelle as categorie_libelle',
-                'categorie.url as categorie_url'
+                'categorie.url as categorie_url',
+                'remise.taux as remise_taux'
             )
             ->join('sexe', 'sexe.id', '=', 'produit.id_sexe')
+            ->leftjoin('remise', 'remise.id', '=', 'produit.id_remise')
             ->join('sous_categorie', 'sous_categorie.id', '=', 'produit.id_souscategorie')
             ->join('categorie', 'categorie.id', '=', 'sous_categorie.id_categorie')
             ->where('sexe.url', $sex)

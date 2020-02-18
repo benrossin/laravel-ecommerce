@@ -1920,6 +1920,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Product",
   props: ["product"],
@@ -6529,7 +6542,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.content-product[data-v-39b4a06d] {\r\n  padding: 15px 0;\n}\n.content-product span[data-v-39b4a06d]{\r\n    display: block;\n}\n.produit-price[data-v-39b4a06d]{\r\n    margin-top: 10px;\r\n    font-size: 1.1em;\r\n    font-weight: bold;\n}\r\n", ""]);
+exports.push([module.i, "\n.content-product[data-v-39b4a06d] {\r\n  padding: 15px 0;\n}\n.content-product span[data-v-39b4a06d] {\r\n  display: block;\n}\n.produit-price[data-v-39b4a06d] {\r\n  margin-top: 10px;\r\n  font-size: 1.1em;\r\n  font-weight: bold;\n}\n.produit-price-discount[data-v-39b4a06d] {\r\n  color: var(--red);\n}\n.content-price[data-v-39b4a06d] {\r\n  display: flex;\n}\n.produit-price-discount[data-v-39b4a06d] {\r\n  margin-left: 5px;\n}\n.content-img-product[data-v-39b4a06d] {\r\n  position: relative;\n}\n.label-promo[data-v-39b4a06d]{\r\n    background-color: var(--white);\r\n    color: var(--red);\r\n    position: absolute;\r\n    top: 15px;\r\n    left: 0;\r\n    padding: 0 2.5px;\n}\r\n", ""]);
 
 // exports
 
@@ -38052,18 +38065,49 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "product" }, [
     _c("a", { attrs: { href: "#" } }, [
-      _c("img", {
-        staticClass: "img-fluid",
-        attrs: { src: _vm.imgPreview, alt: "image preview" }
-      }),
+      _c("div", { staticClass: "content-img-product" }, [
+        _vm.product.remise_taux
+          ? _c("div", { staticClass: "label-promo" }, [
+              _c("span", { staticClass: "small-text" }, [
+                _vm._v("-" + _vm._s(_vm.product.remise_taux) + " %")
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "img-fluid",
+          attrs: { src: _vm.imgPreview, alt: "image preview" }
+        })
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "content-product" }, [
         _c("span", { staticClass: "produit-libelle" }, [
           _vm._v(_vm._s(_vm.product.produit_libelle))
         ]),
         _vm._v(" "),
-        _c("span", { staticClass: "produit-price" }, [
-          _vm._v(_vm._s(_vm.product.produit_prix / 100) + " €")
+        _c("div", { staticClass: "content-price" }, [
+          _c("span", { staticClass: "produit-price" }, [
+            _vm.product.remise_taux
+              ? _c("del", [
+                  _vm._v(_vm._s(_vm.product.produit_prix / 100) + " €")
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _vm.product.remise_taux
+            ? _c(
+                "span",
+                { staticClass: "produit-price produit-price-discount" },
+                [
+                  _vm._v(
+                    _vm._s(
+                      (_vm.product.produit_prix / 100) *
+                        (1 - _vm.product.remise_taux / 100)
+                    ) + " €"
+                  )
+                ]
+              )
+            : _vm._e()
         ])
       ])
     ])
