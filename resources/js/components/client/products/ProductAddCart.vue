@@ -68,11 +68,15 @@ export default {
   methods: {
     chooseSize(size) {
       this.errorAddCart = null;
-      this.$store.dispatch('productclient/setSizeSelected', size);
+      if(this.sizeActu != size){
+        this.$store.dispatch('productclient/setSizeSelected', size);
+      }
     },
     chooseColor(color) {
       this.errorAddCart = null;
-      this.$store.dispatch('productclient/setColorSelected', color);
+      if(this.colorActu != color){
+        this.$store.dispatch('productclient/setColorSelected', color);
+      }
     },
     addToCart() {
       if (this.sizeActu && this.colorActu) {
@@ -85,6 +89,10 @@ export default {
 </script>
 
 <style scoped>
+.product-addcart{
+  padding-left: 150px;
+}
+
 .product-name {
   font-size: 18px;
   letter-spacing: 1px;
@@ -154,6 +162,7 @@ export default {
   border: 2px solid var(--grey);
   background-color: transparent;
   transition: 0.25s all;
+  font-size: 16px;
 }
 
 .select-quantity:hover {

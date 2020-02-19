@@ -1,7 +1,7 @@
 <template>
   <div>
-    <product-slide class="w60"></product-slide>
-    <product-add-cart class="w40"></product-add-cart>
+    <product-slide class="w50"></product-slide>
+    <product-add-cart class="w50"></product-add-cart>
   </div>
 </template>
 
