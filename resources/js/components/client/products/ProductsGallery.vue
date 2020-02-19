@@ -1,6 +1,6 @@
 <template>
   <div class="product">
-    <a href="#">
+    <a :href="routeProduct">
       <div class="content-img-product">
         <div v-if="product.remise_taux" class="label-promo">
             <span class="small-text">-{{ product.remise_taux }} %</span>
@@ -8,14 +8,12 @@
         <img :src="imgPreview" alt="image preview" class="img-fluid" />
       </div>
       <div class="content-product">
-        <span class="produit-libelle">{{ product.produit_libelle }}</span>
+        <span class="product-libelle">{{ product.produit_libelle }}</span>
         <div class="content-price">
-          <span class="produit-price">
-            <del v-if="product.remise_taux">{{ product.produit_prix / 100 }} €</del>
-          </span>
+            <span class="product-price" :class="{'crossed': product.remise_taux}">{{ product.produit_prix / 100 }} €</span>
           <span
             v-if="product.remise_taux"
-            class="produit-price produit-price-discount"
+            class="product-price product-price-discount"
           >{{ (product.produit_prix / 100) * ( 1 - (product.remise_taux / 100)) }} €</span>
         </div>
       </div>
@@ -25,11 +23,14 @@
 
 <script>
 export default {
-  name: "Product",
+  name: "ProductsGallery",
   props: ["product"],
   computed: {
     imgPreview() {
-      return `${window.baseUrl}/client/products/${this.product.produit_reference}/Preview/image_preview.jpg`;
+      return `${window.baseUrlImg}/client/products/${this.product.produit_reference}/Preview/image_preview.jpg`;
+    },
+    routeProduct(){
+        return `${window.baseUrl}/${this.product.sexe_url}/${this.product.categorie_url}/${this.product.souscategorie_url}/${this.product.produit_id}`;
     }
   }
 };
@@ -42,24 +43,6 @@ export default {
 
 .content-product span {
   display: block;
-}
-
-.produit-price {
-  margin-top: 10px;
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
-.produit-price-discount {
-  color: var(--red);
-}
-
-.content-price {
-  display: flex;
-}
-
-.produit-price-discount {
-  margin-left: 5px;
 }
 
 .content-img-product {

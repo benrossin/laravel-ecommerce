@@ -5,9 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Products extends Model
+class Product extends Model
 {
     protected $table = 'produit';
+
+    public static function getProductById($id){
+        return DB::table('produit')
+            ->select(
+                'produit.id as produit_id',
+                'produit.reference as produit_reference',
+                'produit.libelle as produit_libelle',
+                'produit.description as produit_description',
+                'produit.prix as produit_prix',
+                'remise.taux as remise_taux'
+            )
+            ->leftjoin('remise', 'remise.id', '=', 'produit.id_remise')
+            ->where('produit.id', $id)
+            ->first();
+    }
 
     public static function getProductsBySex($sex)
     {
@@ -19,7 +34,7 @@ class Products extends Model
                 'produit.description as produit_description',
                 'produit.prix as produit_prix',
                 'sexe.id as sexe_id',
-                'sexe.libelle as sex_libelle',
+                'sexe.libelle as sexe_libelle',
                 'sexe.url as sexe_url',
                 'sous_categorie.id as souscategorie_id',
                 'sous_categorie.libelle as souscategorie_libelle',
@@ -47,7 +62,7 @@ class Products extends Model
                 'produit.description as produit_description',
                 'produit.prix as produit_prix',
                 'sexe.id as sexe_id',
-                'sexe.libelle as sex_libelle',
+                'sexe.libelle as sexe_libelle',
                 'sexe.url as sexe_url',
                 'sous_categorie.id as souscategorie_id',
                 'sous_categorie.libelle as souscategorie_libelle',
@@ -76,7 +91,7 @@ class Products extends Model
                 'produit.description as produit_description',
                 'produit.prix as produit_prix',
                 'sexe.id as sexe_id',
-                'sexe.libelle as sex_libelle',
+                'sexe.libelle as sexe_libelle',
                 'sexe.url as sexe_url',
                 'sous_categorie.id as souscategorie_id',
                 'sous_categorie.libelle as souscategorie_libelle',
@@ -99,15 +114,21 @@ class Products extends Model
     {
         return DB::table('produit')
             ->select(
-                'image.lien as image_lien', 
-                'image.alt as image_alt', 
                 'couleur.id as couleur_id', 
                 'couleur.hexa as couleur_hexa', 
                 'couleur.libelle as couleur_libelle'
             )
-            ->join('produit_couleur_image', 'produit.id', '=', 'produit_couleur_image.id_produit')
-            ->join('image', 'image.id', '=', 'produit_couleur_image.id_image')
-            ->join('couleur', 'couleur.id', '=', 'produit_couleur_image.id_couleur')
+            ->join('produit_couleur', 'produit.id', '=', 'produit_couleur.id_produit')
+            ->join('couleur', 'couleur.id', '=', 'produit_couleur.id_couleur')
+            ->where('produit.id', $id)
+            ->get();
+    }
+
+    public static function getProductsSize($id){
+        return DB::table('produit')
+            ->select('taille.id as taille_id', 'taille.libelle as taille_libelle', 'stock.quantite as stock_quantite')
+            ->join('stock', 'stock.id_produit', '=', 'produit.id')
+            ->join('taille', 'taille.id', '=', 'stock.id_taille')
             ->where('produit.id', $id)
             ->get();
     }

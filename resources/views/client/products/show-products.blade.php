@@ -33,8 +33,8 @@
     </div>
 </div>
 
-<div class="search-results">
-    <products class="fcontent container" :list-products="{{ json_encode($products) }}"></products>
+<div class="search-results padtb-50">
+    <page-products class="fcontent container" :list-products="{{ json_encode($products) }}"></page-products>
 </div>
 
 @endsection

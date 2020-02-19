@@ -14,11 +14,11 @@
 /////////////ROUTE CLIENT////////////
 //*************ROUTE-HOME**********
 Route::get('/', 'HomeController@index')->name('home');
-
 //************ROUTE-PRODUIT****************
 Route::get('/{sex}', 'ProductsController@index')->name('products.show');
 Route::get('/{sex}/{category}', 'ProductsController@category')->name('products.by-category');
 Route::get('/{sex}/{category}/{subcategory}', 'ProductsController@subcategory')->name('products.by-subcategory');
+Route::get('/{sex}/{category}/{subcategory}/{id}', 'ProductsController@product')->name('product.show');
 
 //***************ROUTE-PANIER******************
 

@@ -6,6 +6,6 @@
 
 <script>
     export default {
-        name: 'Resultsfilter'
+        name: 'ProductsFilter'
     }
 </script>
