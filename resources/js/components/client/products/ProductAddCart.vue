@@ -15,7 +15,7 @@
       <label for="color" class="lbl-color">Couleur</label>
       <div class="fcontent">
         <button
-          v-for="color in colors"
+          v-for="color in product.produit_couleurs"
           :key="color.couleur_id"
           @click.prevent="chooseColor(color)"
           :class="{ active: color == colorActu }"
@@ -27,7 +27,7 @@
       <label for="size" class="lbl-size">Taille</label>
       <div class="fcontent">
         <button
-          v-for="size in sizes"
+          v-for="size in product.produit_tailles"
           :key="size.taille_id"
           @click.prevent="chooseSize(size)"
           :disabled="size.stock_quantite == 0"
@@ -38,7 +38,7 @@
     <div class="content-bottom-addcart">
       <span class="error-addcart">{{ errorAddCart }}</span>
       <div class="content-buttons-addcart fcontent">
-        <select class="select-quantity w25" v-model="quantity">
+        <select class="select-quantity w25" v-model="quantityActu">
           <option v-for="index in 10" :key="index" :value="index">{{ index }}</option>
         </select>
         <button class="btn-black btn-addcart" @click.prevent="addToCart()">Acheter</button>
@@ -48,25 +48,31 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: "ProductAddCart",
-  props: ["product", "sizes", "colors"],
   data() {
     return {
-      sizeActu: null,
-      colorActu: null,
-      quantity: 1,
       errorAddCart: null
     };
   },
+  computed: {
+    ...mapGetters('productclient', {
+      product: 'product',
+      sizeActu: 'sizeSelected',
+      colorActu: 'colorSelected',
+      quantityActu: 'quantitySelected'
+    })
+  },
   methods: {
-    chooseSize(taille) {
-      this.sizeActu = taille;
+    chooseSize(size) {
       this.errorAddCart = null;
+      this.$store.dispatch('productclient/setSizeSelected', size);
     },
     chooseColor(color) {
-      this.colorActu = color;
       this.errorAddCart = null;
+      this.$store.dispatch('productclient/setColorSelected', color);
     },
     addToCart() {
       if (this.sizeActu && this.colorActu) {

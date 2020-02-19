@@ -1910,6 +1910,7 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductAddCart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductAddCart */ "./resources/js/components/client/products/ProductAddCart.vue");
 /* harmony import */ var _ProductSlide__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductSlide */ "./resources/js/components/client/products/ProductSlide.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -1917,6 +1918,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1925,7 +1927,12 @@ __webpack_require__.r(__webpack_exports__);
     ProductAddCart: _ProductAddCart__WEBPACK_IMPORTED_MODULE_0__["default"],
     ProductSlide: _ProductSlide__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  props: ["product", "sizes", "colors"]
+  props: ["product", "colors", "sizes"],
+  created: function created() {
+    this.product.produit_couleurs = this.colors;
+    this.product.produit_tailles = this.sizes;
+    this.$store.dispatch('productclient/setProduct', this.product);
+  }
 });
 
 /***/ }),
@@ -1972,6 +1979,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2021,25 +2035,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductAddCart",
-  props: ["product", "sizes", "colors"],
   data: function data() {
     return {
-      sizeActu: null,
-      colorActu: null,
-      quantity: 1,
       errorAddCart: null
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('productclient', {
+    product: 'product',
+    sizeActu: 'sizeSelected',
+    colorActu: 'colorSelected',
+    quantityActu: 'quantitySelected'
+  })),
   methods: {
-    chooseSize: function chooseSize(taille) {
-      this.sizeActu = taille;
+    chooseSize: function chooseSize(size) {
       this.errorAddCart = null;
+      this.$store.dispatch('productclient/setSizeSelected', size);
     },
     chooseColor: function chooseColor(color) {
-      this.colorActu = color;
       this.errorAddCart = null;
+      this.$store.dispatch('productclient/setColorSelected', color);
     },
     addToCart: function addToCart() {
       if (this.sizeActu && this.colorActu) {} else {
@@ -2060,14 +2077,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ProductSlide"
+  name: "ProductSlide",
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("productclient", {
+    product: "product",
+    colorActu: "colorSelected"
+  }), {
+    showImageProduct: function showImageProduct() {
+      return "".concat(window.baseUrlImg, "/client/products/").concat(this.product.produit_reference, "/").concat(this.colorActu.couleur_libelle, "/img1.jpg");
+    }
+  })
 });
 
 /***/ }),
@@ -38258,10 +38291,7 @@ var render = function() {
     [
       _c("product-slide", { staticClass: "w60" }),
       _vm._v(" "),
-      _c("product-add-cart", {
-        staticClass: "w40",
-        attrs: { product: _vm.product, sizes: _vm.sizes, colors: _vm.colors }
-      })
+      _c("product-add-cart", { staticClass: "w40" })
     ],
     1
   )
@@ -38366,7 +38396,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "fcontent" },
-        _vm._l(_vm.colors, function(color) {
+        _vm._l(_vm.product.produit_couleurs, function(color) {
           return _c("button", {
             key: color.couleur_id,
             class: { active: color == _vm.colorActu },
@@ -38391,7 +38421,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "fcontent" },
-        _vm._l(_vm.sizes, function(size) {
+        _vm._l(_vm.product.produit_tailles, function(size) {
           return _c(
             "button",
             {
@@ -38425,8 +38455,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.quantity,
-                expression: "quantity"
+                value: _vm.quantityActu,
+                expression: "quantityActu"
               }
             ],
             staticClass: "select-quantity w25",
@@ -38440,7 +38470,7 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.quantity = $event.target.multiple
+                _vm.quantityActu = $event.target.multiple
                   ? $$selectedVal
                   : $$selectedVal[0]
               }
@@ -38493,22 +38523,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("img", {
+      attrs: { src: _vm.showImageProduct, alt: _vm.product.produit_libelle }
+    })
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("p", [
-        _vm._v(
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad expedita ullam assumenda corrupti nesciunt eveniet in ea, molestiae exercitationem reprehenderit architecto sit, ipsa sint quibusdam dolor. Sunt repellendus corporis iste."
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -52436,13 +52457,58 @@ var debug = "development" !== 'production';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 // initial state
-var state = {}; // getters
+var state = {
+  product: null,
+  colorSelected: null,
+  sizeSelected: null,
+  quantitySelected: 1
+}; // getters
 
-var getters = {}; // actions
+var getters = {
+  product: function product(state) {
+    return state.product;
+  },
+  colorSelected: function colorSelected(state) {
+    return state.colorSelected;
+  },
+  sizeSelected: function sizeSelected(state) {
+    return state.sizeSelected;
+  },
+  quantitySelected: function quantitySelected(state) {
+    return state.quantitySelected;
+  }
+}; // actions
 
-var actions = {}; // mutations
+var actions = {
+  setProduct: function setProduct(context, product) {
+    context.commit('SET_PRODUCT', product);
+    context.commit('SET_COLOR_SELECTED', product.produit_couleurs[0]);
+  },
+  setColorSelected: function setColorSelected(context, color) {
+    context.commit('SET_COLOR_SELECTED', color);
+  },
+  setSizeSelected: function setSizeSelected(context, size) {
+    context.commit('SET_SIZE_SELECTED', size);
+  },
+  setQuantitySelected: function setQuantitySelected(context, quantity) {
+    context.commit('SET_QUANTITY_SELECTED', quantity);
+  }
+}; // mutations
 
-var mutations = {};
+var mutations = {
+  SET_PRODUCT: function SET_PRODUCT(state, product) {
+    state.product = product;
+  },
+  SET_COLOR_SELECTED: function SET_COLOR_SELECTED(state, color) {
+    state.colorSelected = color;
+  },
+  SET_SIZE_SELECTED: function SET_SIZE_SELECTED(state, size) {
+    state.sizeSelected = size;
+  },
+  SET_QUANTITY_SELECTED: function SET_QUANTITY_SELECTED(state, quantity) {
+    state.quantity = quantity;
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,

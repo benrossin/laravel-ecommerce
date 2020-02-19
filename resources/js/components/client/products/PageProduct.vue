@@ -1,13 +1,14 @@
 <template>
   <div>
     <product-slide class="w60"></product-slide>
-    <product-add-cart class="w40" :product="product" :sizes="sizes" :colors="colors"></product-add-cart>
+    <product-add-cart class="w40"></product-add-cart>
   </div>
 </template>
 
 <script>
 import ProductAddCart from "./ProductAddCart";
 import ProductSlide from "./ProductSlide";
+import {  } from "vuex";
 
 export default {
   name: "PageProduct",
@@ -15,7 +16,12 @@ export default {
     ProductAddCart,
     ProductSlide
   },
-  props: ["product", "sizes", "colors"]
+  props: ["product", "colors", "sizes"],
+  created(){
+    this.product.produit_couleurs = this.colors;
+    this.product.produit_tailles = this.sizes;
+    this.$store.dispatch('productclient/setProduct', this.product);
+  }
 };
 </script>
 
