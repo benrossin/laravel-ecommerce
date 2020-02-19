@@ -1,24 +1,12 @@
 // initial state
 const state = {
-    product: null,
-    colorSelected: null,
-    sizeSelected: null,
-    quantitySelected: 1
+    product: null
 }
 
 // getters
 const getters = {
     product: state => {
         return state.product;
-    },
-    colorSelected: state => {
-        return state.colorSelected;
-    },
-    sizeSelected: state => {
-        return state.sizeSelected;
-    },
-    quantitySelected: state => {
-        return state.quantitySelected;
     }
 }
 
@@ -26,7 +14,6 @@ const getters = {
 const actions = {
     setProduct: (context, product) => {
         context.commit('SET_PRODUCT', product);
-        context.commit('SET_COLOR_SELECTED', product.produit_couleurs[0]);
     },
     setColorSelected: (context, color) => {
         context.commit('SET_COLOR_SELECTED', color);
@@ -45,13 +32,13 @@ const mutations = {
         state.product = product;
     },
     SET_COLOR_SELECTED: (state, color) => {
-        state.colorSelected = color;
+        state.product.couleur_select = color;
     },
     SET_SIZE_SELECTED: (state, size) => {
-        state.sizeSelected = size;
+        state.product.taille_select = size;
     },
     SET_QUANTITY_SELECTED: (state, quantity) => {
-        state.quantity = quantity;
+        state.product.quantite = quantity;
     }
 }
 

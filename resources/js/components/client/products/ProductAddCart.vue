@@ -18,7 +18,7 @@
           v-for="color in product.produit_couleurs"
           :key="color.couleur_id"
           @click.prevent="chooseColor(color)"
-          :class="{ active: color == colorActu }"
+          :class="{ active: color == product.couleur_select }"
           :style="{ backgroundColor: color.couleur_hexa }"
         ></button>
       </div>
@@ -31,17 +31,17 @@
           :key="size.taille_id"
           @click.prevent="chooseSize(size)"
           :disabled="size.stock_quantite == 0"
-          :class="{ active: size == sizeActu }"
+          :class="{ active: size == product.taille_select }"
         >{{ size.taille_libelle }}</button>
       </div>
     </div>
     <div class="content-bottom-addcart">
       <span class="error-addcart">{{ errorAddCart }}</span>
       <div class="content-buttons-addcart fcontent">
-        <select class="select-quantity w25" v-model="quantityActu">
+        <select class="select-quantity w25" v-model="quantite">
           <option v-for="index in 10" :key="index" :value="index">{{ index }}</option>
         </select>
-        <button class="btn-black btn-addcart" @click.prevent="addToCart()">Acheter</button>
+        <button class="btn-black btn-addcart" @click.prevent="addToCart()">Ajouter au panier</button>
       </div>
     </div>
   </div>
@@ -59,27 +59,32 @@ export default {
   },
   computed: {
     ...mapGetters('productclient', {
-      product: 'product',
-      sizeActu: 'sizeSelected',
-      colorActu: 'colorSelected',
-      quantityActu: 'quantitySelected'
-    })
+      product: 'product'
+    }),
+    quantite: {
+      get(){
+        return this.product.quantite;
+      },
+      set(newQuantite){
+        this.$store.dispatch('productclient/setQuantitySelected', newQuantite);
+      }
+    }
   },
   methods: {
     chooseSize(size) {
       this.errorAddCart = null;
-      if(this.sizeActu != size){
+      if(this.product.taille_select != size){
         this.$store.dispatch('productclient/setSizeSelected', size);
       }
     },
     chooseColor(color) {
       this.errorAddCart = null;
-      if(this.colorActu != color){
+      if(this.product.couleur_select != color){
         this.$store.dispatch('productclient/setColorSelected', color);
       }
     },
     addToCart() {
-      if (this.sizeActu && this.colorActu) {
+      if (this.product.taille_select && this.product.couleur_select) {
       } else {
         this.errorAddCart = "Merci de sélectionner une taille et une couleur";
       }

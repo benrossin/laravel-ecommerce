@@ -31,25 +31,27 @@ export default {
   },
   computed: {
     ...mapGetters("productclient", {
-      product: "product",
-      colorActu: "colorSelected"
+      product: "product"
     })
   },
   methods: {
     showImageProduct(n) {
-      return `${window.baseUrlImg}/client/products/${this.product.produit_reference}/${this.colorActu.couleur_libelle}/img${n}.jpg`;
+      return `${window.baseUrlImg}/client/products/${this.product.produit_reference}/${this.product.couleur_select.couleur_libelle}/img${n}.jpg`;
     },
     altImageProduct(n) {
-      return `${this.product.produit_libelle} | ${this.colorActu.libelle} | Image ${n}`;
+      return `${this.product.produit_libelle} | ${this.product.couleur_select.couleur_libelle} | Image ${n}`;
     },
     showImage(n){
       this.imageSelected = n;
     }
-  },
+  }, 
   watch: {
-    colorActu(){
-      this.imageSelected = 1;
-    }
+    product: {
+     handler(){
+       this.imageSelected = 1;
+     },
+     deep: true
+  }
   }
 };
 </script>

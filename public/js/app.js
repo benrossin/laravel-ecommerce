@@ -1910,7 +1910,6 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductAddCart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductAddCart */ "./resources/js/components/client/products/ProductAddCart.vue");
 /* harmony import */ var _ProductSlide__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductSlide */ "./resources/js/components/client/products/ProductSlide.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 //
 //
 //
@@ -1918,7 +1917,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1931,6 +1929,9 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.product.produit_couleurs = this.colors;
     this.product.produit_tailles = this.sizes;
+    this.product.couleur_select = this.product.produit_couleurs[0];
+    this.product.taille_select = null;
+    this.product.quantite = 1;
     this.$store.dispatch('productclient/setProduct', this.product);
   }
 });
@@ -2044,28 +2045,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])('productclient', {
-    product: 'product',
-    sizeActu: 'sizeSelected',
-    colorActu: 'colorSelected',
-    quantityActu: 'quantitySelected'
-  })),
+    product: 'product'
+  }), {
+    quantite: {
+      get: function get() {
+        return this.product.quantite;
+      },
+      set: function set(newQuantite) {
+        this.$store.dispatch('productclient/setQuantitySelected', newQuantite);
+      }
+    }
+  }),
   methods: {
     chooseSize: function chooseSize(size) {
       this.errorAddCart = null;
 
-      if (this.sizeActu != size) {
+      if (this.product.taille_select != size) {
         this.$store.dispatch('productclient/setSizeSelected', size);
       }
     },
     chooseColor: function chooseColor(color) {
       this.errorAddCart = null;
 
-      if (this.colorActu != color) {
+      if (this.product.couleur_select != color) {
         this.$store.dispatch('productclient/setColorSelected', color);
       }
     },
     addToCart: function addToCart() {
-      if (this.sizeActu && this.colorActu) {} else {
+      if (this.product.taille_select && this.product.couleur_select) {} else {
         this.errorAddCart = "Merci de sélectionner une taille et une couleur";
       }
     }
@@ -2120,23 +2127,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("productclient", {
-    product: "product",
-    colorActu: "colorSelected"
+    product: "product"
   })),
   methods: {
     showImageProduct: function showImageProduct(n) {
-      return "".concat(window.baseUrlImg, "/client/products/").concat(this.product.produit_reference, "/").concat(this.colorActu.couleur_libelle, "/img").concat(n, ".jpg");
+      return "".concat(window.baseUrlImg, "/client/products/").concat(this.product.produit_reference, "/").concat(this.product.couleur_select.couleur_libelle, "/img").concat(n, ".jpg");
     },
     altImageProduct: function altImageProduct(n) {
-      return "".concat(this.product.produit_libelle, " | ").concat(this.colorActu.libelle, " | Image ").concat(n);
+      return "".concat(this.product.produit_libelle, " | ").concat(this.product.couleur_select.couleur_libelle, " | Image ").concat(n);
     },
     showImage: function showImage(n) {
       this.imageSelected = n;
     }
   },
   watch: {
-    colorActu: function colorActu() {
-      this.imageSelected = 1;
+    product: {
+      handler: function handler() {
+        this.imageSelected = 1;
+      },
+      deep: true
     }
   }
 });
@@ -38486,7 +38495,7 @@ var render = function() {
         _vm._l(_vm.product.produit_couleurs, function(color) {
           return _c("button", {
             key: color.couleur_id,
-            class: { active: color == _vm.colorActu },
+            class: { active: color == _vm.product.couleur_select },
             style: { backgroundColor: color.couleur_hexa },
             on: {
               click: function($event) {
@@ -38513,7 +38522,7 @@ var render = function() {
             "button",
             {
               key: size.taille_id,
-              class: { active: size == _vm.sizeActu },
+              class: { active: size == _vm.product.taille_select },
               attrs: { disabled: size.stock_quantite == 0 },
               on: {
                 click: function($event) {
@@ -38542,8 +38551,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.quantityActu,
-                expression: "quantityActu"
+                value: _vm.quantite,
+                expression: "quantite"
               }
             ],
             staticClass: "select-quantity w25",
@@ -38557,7 +38566,7 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.quantityActu = $event.target.multiple
+                _vm.quantite = $event.target.multiple
                   ? $$selectedVal
                   : $$selectedVal[0]
               }
@@ -38582,7 +38591,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Acheter")]
+          [_vm._v("Ajouter au panier")]
         )
       ])
     ])
@@ -52594,31 +52603,18 @@ var debug = "development" !== 'production';
 __webpack_require__.r(__webpack_exports__);
 // initial state
 var state = {
-  product: null,
-  colorSelected: null,
-  sizeSelected: null,
-  quantitySelected: 1
+  product: null
 }; // getters
 
 var getters = {
   product: function product(state) {
     return state.product;
-  },
-  colorSelected: function colorSelected(state) {
-    return state.colorSelected;
-  },
-  sizeSelected: function sizeSelected(state) {
-    return state.sizeSelected;
-  },
-  quantitySelected: function quantitySelected(state) {
-    return state.quantitySelected;
   }
 }; // actions
 
 var actions = {
   setProduct: function setProduct(context, product) {
     context.commit('SET_PRODUCT', product);
-    context.commit('SET_COLOR_SELECTED', product.produit_couleurs[0]);
   },
   setColorSelected: function setColorSelected(context, color) {
     context.commit('SET_COLOR_SELECTED', color);
@@ -52636,13 +52632,13 @@ var mutations = {
     state.product = product;
   },
   SET_COLOR_SELECTED: function SET_COLOR_SELECTED(state, color) {
-    state.colorSelected = color;
+    state.product.couleur_select = color;
   },
   SET_SIZE_SELECTED: function SET_SIZE_SELECTED(state, size) {
-    state.sizeSelected = size;
+    state.product.taille_select = size;
   },
   SET_QUANTITY_SELECTED: function SET_QUANTITY_SELECTED(state, quantity) {
-    state.quantity = quantity;
+    state.product.quantite = quantity;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
