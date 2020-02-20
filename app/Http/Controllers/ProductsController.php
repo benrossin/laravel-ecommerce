@@ -43,8 +43,13 @@ class ProductsController extends Controller{
 
     public function search(Request $request){
         $search = $request->input('s');
-        $products = Product::getProductsByLibelle($search);
+        if(isset($search)){
+            $products = Product::getProductsByLibelle($search);
+        }else{
+            $products = [];
+            $search = " ";
+        }
         $titlePage = 'Rechercher';
-        return view('client.products.show-products', compact('titlePage', 'products'));
+        return view('client.products.show-products', compact('titlePage', 'products', 'search'));
     }
 }
