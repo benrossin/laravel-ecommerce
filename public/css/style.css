@@ -357,6 +357,12 @@ nav {
     margin-bottom: 10px;
 }
 
+.banner-result{
+    text-align: center;
+    padding: 50px 0;
+    margin-bottom: 50px;
+}
+
 /*Product*/
 .product-price {
     margin-top: 10px;

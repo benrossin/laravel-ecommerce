@@ -38,19 +38,14 @@
 <div class="search-results padtb-50">
     <div class="container">
         @if(count($products) == 0)
-        @if($search)
-        <div class="content-res-search">
-            <h4>
-                OUPS, PAS DE RÉSULTAT POUR "<span>{{ $search }}</span>" :(<br/>
-                PROFITES-EN POUR DÉCOUVRIR NOS RAYONS !
-            </h4>
-            <p>N'abandonne pas! Vérifie l'orthographe...<br/>
-                Sois moins précis dans ta recherche, parfois un terme plus général t'indiquera des articles similaires.<br/>
-                Sinon, tu trouveras peut-être ton bonheur parmi les catégories ci-dessous:</p>
-        </div>
-        @endif
+            @if($search)
+                @include('client.products.no-result-search')
+            @endif
         @else
-        <page-products class="fcontent" :list-products="{{ json_encode($products) }}"></page-products>
+            @if($search)
+                @include('client.banner.banner-result-search')
+            @endif
+            <page-products class="fcontent" :list-products="{{ json_encode($products) }}"></page-products>
         @endif
     </div>
 </div>
