@@ -15,6 +15,7 @@
 //*************ROUTE-HOME**********
 Route::get('/', 'HomeController@index')->name('home');
 //************ROUTE-PRODUIT****************
+Route::get('/rechercher', 'ProductsController@search')->name('products.search');
 Route::get('/{sex}', 'ProductsController@index')->name('products.show');
 Route::get('/{sex}/{category}', 'ProductsController@category')->name('products.by-category');
 Route::get('/{sex}/{category}/{subcategory}', 'ProductsController@subcategory')->name('products.by-subcategory');

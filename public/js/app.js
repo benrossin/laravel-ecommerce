@@ -2073,7 +2073,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     addToCart: function addToCart() {
       if (this.product.taille_select && this.product.couleur_select) {} else {
-        this.errorAddCart = "Merci de sélectionner une taille et une couleur";
+        this.errorAddCart = "Merci de sélectionner une taille";
       }
     }
   }
@@ -2118,6 +2118,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductSlide",
@@ -2127,7 +2131,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("productclient", {
-    product: "product"
+    product: "product",
+    oldProduct: null
   })),
   methods: {
     showImageProduct: function showImageProduct(n) {
@@ -2141,11 +2146,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   watch: {
-    product: {
-      handler: function handler() {
-        this.imageSelected = 1;
-      },
-      deep: true
+    'product.couleur_select': function productCouleur_select(newValue, oldValue) {
+      this.imageSelected = 1;
     }
   }
 });
@@ -6801,7 +6803,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.slide-image-product[data-v-606e3ef4] {\r\n  margin-bottom: 7.5px;\n}\n.image-product[data-v-606e3ef4]{\r\n  padding-left: 40px;\n}\n.active[data-v-606e3ef4]{\r\n  border: 2px solid var(--black);\n}\r\n", ""]);
+exports.push([module.i, "\n.slide-image-product[data-v-606e3ef4] {\r\n  margin-bottom: 7.5px;\n}\n.image-product[data-v-606e3ef4] {\r\n  padding-left: 40px;\n}\n.active[data-v-606e3ef4] {\r\n  border: 2px solid var(--black);\n}\r\n", ""]);
 
 // exports
 

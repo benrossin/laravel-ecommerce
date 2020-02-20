@@ -55,7 +55,14 @@
                 <li><a href="{{ route('products.show', ['sex' => 'femme']) }}">Femme</a></li>
                 <li><a href="#">Nouveautés</a></li>
                 <li><a href="#">Promotions</a></li>
-                <li><a href="#" class="search-icon-navbar"><i class="fas fa-search"></i></a></li>
+                <li>
+                    <a href="#" class="search-icon-navbar">
+                        <form action="{{ route('products.search') }}" method="get">
+                            <input type="text" name="s" placeholder="Rechercher un produit" autocomplete="off">
+                        </form>
+                        <i class="fas fa-search"></i>
+                    </a>
+                </li>
             </ul>
             <ul class="tools-navbar">
                 <li><a href="#"><i class="fas fa-user"></i></a></li>

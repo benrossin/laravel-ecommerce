@@ -14,7 +14,11 @@
       </a>
     </div>
     <div class="image-product w85">
-      <img :src="showImageProduct(imageSelected)" :alt="altImageProduct(imageSelected)" class="img-fluid" />
+      <img
+        :src="showImageProduct(imageSelected)"
+        :alt="altImageProduct(imageSelected)"
+        class="img-fluid"
+      />
     </div>
   </div>
 </template>
@@ -31,7 +35,8 @@ export default {
   },
   computed: {
     ...mapGetters("productclient", {
-      product: "product"
+      product: "product",
+      oldProduct: null
     })
   },
   methods: {
@@ -41,17 +46,14 @@ export default {
     altImageProduct(n) {
       return `${this.product.produit_libelle} | ${this.product.couleur_select.couleur_libelle} | Image ${n}`;
     },
-    showImage(n){
+    showImage(n) {
       this.imageSelected = n;
     }
-  }, 
+  },
   watch: {
-    product: {
-     handler(){
-       this.imageSelected = 1;
-     },
-     deep: true
-  }
+    'product.couleur_select'(newValue, oldValue){
+      this.imageSelected = 1;
+    }
   }
 };
 </script>
@@ -61,11 +63,11 @@ export default {
   margin-bottom: 7.5px;
 }
 
-.image-product{
+.image-product {
   padding-left: 40px;
 }
 
-.active{
+.active {
   border: 2px solid var(--black);
 }
 </style>

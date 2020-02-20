@@ -86,7 +86,7 @@ export default {
     addToCart() {
       if (this.product.taille_select && this.product.couleur_select) {
       } else {
-        this.errorAddCart = "Merci de sélectionner une taille et une couleur";
+        this.errorAddCart = "Merci de sélectionner une taille";
       }
     }
   }

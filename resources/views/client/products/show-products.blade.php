@@ -9,8 +9,11 @@
     <div class="container">
         <div class="content-products-nav">
             <div class="products-nav-content">
-                <a href="{{ route('home') }}">Accueil</a> >
-                <a href="{{ route('products.show', ['sex' => $sex->url]) }}">{{ $sex->libelle }}</a>
+                <a href="{{ route('home') }}">Accueil</a>
+                @isset($sex)
+                    >
+                    <a href="{{ route('products.show', ['sex' => $sex->url]) }}">{{ $sex->libelle }}</a>
+                @endisset
                 @isset($category)
                     >
                     <a href="{{ route('products.by-category', ['sex' => $sex->url, 'category' => $category->url]) }}">{{ $category->libelle }}</a>

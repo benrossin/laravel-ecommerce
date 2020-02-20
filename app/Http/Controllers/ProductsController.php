@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Sex;
 use App\Models\Category;
-use App\Models\Products;
 use App\Models\Subcategory;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller{
     
@@ -41,15 +41,10 @@ class ProductsController extends Controller{
         return view('client.products.show-product', compact('titlePage', 'product', 'sizes', 'colors'));
     }
 
-    /*public function promo(){
-        $titlePage = 'Promotions';
-        //$products = ;
+    public function search(Request $request){
+        $search = $request->input('s');
+        $products = Product::getProductsByLibelle($search);
+        $titlePage = 'Rechercher';
         return view('client.products.show-products', compact('titlePage', 'products'));
     }
-
-    public function news(){
-        $titlePage = 'Nouveautés';
-        //$products = ;
-        return view('client.products.show-products', compact('titlePage', 'products'));
-    }*/
 }

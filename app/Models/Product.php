@@ -9,7 +9,8 @@ class Product extends Model
 {
     protected $table = 'produit';
 
-    public static function getProductById($id){
+    public static function getProductById($id)
+    {
         return DB::table('produit')
             ->select(
                 'produit.id as produit_id',
@@ -22,6 +23,22 @@ class Product extends Model
             ->leftjoin('remise', 'remise.id', '=', 'produit.id_remise')
             ->where('produit.id', $id)
             ->first();
+    }
+
+    public static function getProductsByLibelle($search)
+    {
+        return DB::table('produit')
+            ->select(
+                'produit.id as produit_id',
+                'produit.reference as produit_reference',
+                'produit.libelle as produit_libelle',
+                'produit.description as produit_description',
+                'produit.prix as produit_prix',
+                'remise.taux as remise_taux'
+            )
+            ->leftjoin('remise', 'remise.id', '=', 'produit.id_remise')
+            ->where('produit.libelle', 'like', '%' . $search . '%')
+            ->get();
     }
 
     public static function getProductsBySex($sex)
@@ -114,8 +131,8 @@ class Product extends Model
     {
         return DB::table('produit')
             ->select(
-                'couleur.id as couleur_id', 
-                'couleur.hexa as couleur_hexa', 
+                'couleur.id as couleur_id',
+                'couleur.hexa as couleur_hexa',
                 'couleur.libelle as couleur_libelle'
             )
             ->join('produit_couleur', 'produit.id', '=', 'produit_couleur.id_produit')
@@ -124,7 +141,8 @@ class Product extends Model
             ->get();
     }
 
-    public static function getProductsSize($id){
+    public static function getProductsSize($id)
+    {
         return DB::table('produit')
             ->select('taille.id as taille_id', 'taille.libelle as taille_libelle', 'stock.quantite as stock_quantite')
             ->join('stock', 'stock.id_produit', '=', 'produit.id')
