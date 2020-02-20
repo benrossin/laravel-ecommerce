@@ -56,12 +56,16 @@
                 <li><a href="#">Nouveautés</a></li>
                 <li><a href="#">Promotions</a></li>
                 <li>
-                    <a href="#" class="search-icon-navbar">
-                        <form action="{{ route('products.search') }}" method="get">
-                            <input type="text" name="s" placeholder="Rechercher un produit" autocomplete="off">
-                        </form>
-                        <i class="fas fa-search"></i>
-                    </a>
+                    <a href="#" class="search-icon-navbar"><i class="fas fa-search"></i></a>
+                    <div class="sub-nav">
+                        <div class="container">
+                            <div class="content-sub-nav fadeIn animated">
+                                <form class="subnav-searchbar" action="{{ route('products.search') }}" method="get">
+                                    <input type="text" name="s" placeholder="Rechercher un produit" autocomplete="off">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <ul class="tools-navbar">
