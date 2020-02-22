@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('PageProduct', require('./components/client/products/PageProduct').default);
 Vue.component('PageProducts', require('./components/client/products/PageProducts').default);
+Vue.component('ProductsSortby', require('./components/client/products/ProductsSortby').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

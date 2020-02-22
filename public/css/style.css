@@ -349,6 +349,11 @@ nav {
 }
 
 /*Products*/
+.content-products-sortby{
+    margin-bottom: 25px;
+    text-align: right;
+}
+
 .content-res-search{
     text-align: center;
 }

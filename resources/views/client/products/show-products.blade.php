@@ -37,15 +37,16 @@
 
 <div class="search-results padtb-50">
     <div class="container">
+        <products-sortby class="content-products-sortby"></products-sortby>
         @if(count($products) == 0)
-            @if($search)
-                @include('client.products.no-result-search')
-            @endif
+        @isset($search)
+        @include('client.products.no-result-search')
+        @endisset
         @else
-            @if($search)
-                @include('client.banner.banner-result-search')
-            @endif
-            <page-products class="fcontent" :list-products="{{ json_encode($products) }}"></page-products>
+        @isset($search)
+        @include('client.banner.banner-result-search')
+        @endisset
+        <page-products class="fcontent content-grid" :list-products="{{ json_encode($products) }}"></page-products>
         @endif
     </div>
 </div>
